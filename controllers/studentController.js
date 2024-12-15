@@ -1,6 +1,6 @@
-const Student = require('../models/Student');
+const Student = require('../models/students');
 
-exports.signup = async (req, res) => {
+signup = async (req, res) => {
   try {
     const { email, password } = req.body;
     const newStudent = new Student({ email, password });
@@ -11,7 +11,7 @@ exports.signup = async (req, res) => {
   }
 };
 
-exports.login = async (req, res) => {
+login = async (req, res) => {
   try {
     const { email, password } = req.body;
     const student = await Student.findOne({ email });
@@ -25,7 +25,7 @@ exports.login = async (req, res) => {
   }
 };
 
-exports.resetPassword = async (req, res) => {
+resetPassword = async (req, res) => {
   try {
     const { email, newPassword } = req.body;
     const student = await Student.findOne({ email });
@@ -46,3 +46,9 @@ const generateToken = (id, role) => {
     return jwt.sign({ _id: id, role }, process.env.JWT_SECRET, { expiresIn: '1h' });
   };
   
+
+module.exports = {
+  signup,
+  login,
+  resetPassword,
+}

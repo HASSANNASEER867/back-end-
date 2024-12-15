@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const { generateToken } = require('../helpers/auth');
 
-exports.signup = async (req, res) => {
+signup = async (req, res) => {
   try {
     const { email, password } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -13,7 +13,7 @@ exports.signup = async (req, res) => {
   }
 };
 
-exports.login = async (req, res) => {
+login = async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
@@ -31,4 +31,10 @@ exports.login = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
+};
+
+
+module.exports = {
+  signup,
+  login,
 };

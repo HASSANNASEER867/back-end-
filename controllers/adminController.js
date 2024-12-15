@@ -1,7 +1,7 @@
-const Admin = require('../Models/Admin');
-const Section = require('../Models/Sections');
+const Admin = require('../models/admin');
+const Section = require('../models/sections');
 
-exports.signup = async (req, res) => {
+const signup = async (req, res) => {
   try {
     const { email, password } = req.body;
     const newAdmin = new Admin({ email, password });
@@ -12,7 +12,7 @@ exports.signup = async (req, res) => {
   }
 };
 
-exports.login = async (req, res) => {
+const login = async (req, res) => {
   try {
     const { email, password } = req.body;
     const admin = await Admin.findOne({ email });
@@ -26,7 +26,7 @@ exports.login = async (req, res) => {
   }
 };
 
-exports.createSection = async (req, res) => {
+const createSection = async (req, res) => {
   try {
     const { name, day, timeZone, technology } = req.body;
     const newSection = new Section({ name, day, timeZone, technology });
@@ -37,7 +37,7 @@ exports.createSection = async (req, res) => {
   }
 };
 
-exports.editStudentList = async (req, res) => {
+const editStudentList = async (req, res) => {
   try {
     const { sectionId } = req.params;
     const { addStudents, removeStudents } = req.body;
@@ -59,7 +59,7 @@ exports.editStudentList = async (req, res) => {
   }
 };
 
-exports.assignTeacher = async (req, res) => {
+const assignTeacher = async (req, res) => {
   try {
     const { sectionId } = req.params;
     const { teacherId } = req.body;
@@ -80,3 +80,12 @@ const generateToken = (id, role) => {
     return jwt.sign({ _id: id, role }, process.env.JWT_SECRET, { expiresIn: '1h' });
   };
   
+
+module.exports = {
+  signup,
+  login,
+  createSection,
+  editStudentList,
+  assignTeacher,
+  generateToken,  
+}

@@ -2,6 +2,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
+// Routes
+const adminRoutes = require('./routes/admin');
+const teacherRoutes = require('./routes/teacher');
+const studentRoutes = require('./routes/students');
+
 
 dotenv.config();
 
@@ -14,16 +19,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Database connection
 mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+  // useNewUrlParser: true,
+  // useUnifiedTopology: true,
+  
 })
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error(err));
 
-// Routes
-const adminRoutes = require('./routes/admin');
-const teacherRoutes = require('./routes/teacher');
-const studentRoutes = require('./routes/student');
 
 app.use('/api/admin', adminRoutes);
 app.use('/api/teacher', teacherRoutes);

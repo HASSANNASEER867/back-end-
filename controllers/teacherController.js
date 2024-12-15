@@ -1,7 +1,7 @@
-const Teacher = require('../Models/Teacher');
-const Section = require('../models/Section');
+const Teacher = require('../models/teacher');
+const Section = require('../models/sections');
 
-exports.signup = async (req, res) => {
+signup = async (req, res) => {
   try {
     const { email, password } = req.body;
     const newTeacher = new Teacher({ email, password });
@@ -18,3 +18,6 @@ const generateToken = (id, role) => {
     return jwt.sign({ _id: id, role }, process.env.JWT_SECRET, { expiresIn: '1h' });
   };
   
+module.exports = {
+  signup,
+}
